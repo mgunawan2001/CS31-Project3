@@ -23,7 +23,6 @@ public:
 private:
     Socrates* m_player;
     vector<Actor*> actors;
-    int m_level;
     
 };
 

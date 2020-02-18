@@ -15,7 +15,7 @@ GameWorld* createStudentWorld(string assetPath)
 // Students:  Add code to this file, StudentWorld.h, Actor.h and Actor.cpp
 
 StudentWorld::StudentWorld(string assetPath)
-: GameWorld(assetPath), m_level(1)
+: GameWorld(assetPath)
 {
 
 } 
@@ -29,7 +29,7 @@ int StudentWorld::init()
       each other).It is OK for dirt objects to overlap with each other, however.Each
       dirt object must be no more 120 pixels from the center of the Petri dish which
       is at(VIEW_WIDTH / 2, VIEW_HEIGHT / 2).*/
-    int numDirt = max((180-20*m_level), 20);
+    int numDirt = max((180-2*getLevel()), 20);
     for (int i = 0; i < numDirt; i++)
     {
         int startX = rand() % 256;
