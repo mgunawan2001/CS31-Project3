@@ -1,0 +1,3 @@
+﻿  StudentWorld.cpp
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(37,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Kontagion.vcxproj -> C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Debug\Kontagion.exe
