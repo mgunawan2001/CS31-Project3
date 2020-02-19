@@ -19,6 +19,8 @@ public:
     virtual int move();
     virtual void cleanUp();
     virtual ~StudentWorld();
+    int findEuclidean(int startX, int startY, int endX, int endY);
+    bool checkAllowed(int startX, int startY);
 
 
     vector<Actor*> getActors() { return actors; }

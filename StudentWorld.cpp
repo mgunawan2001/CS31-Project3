@@ -20,6 +20,30 @@ StudentWorld::StudentWorld(string assetPath)
 
 } 
 
+int StudentWorld::findEuclidean(int startX, int startY, int endX, int endY)
+{
+    return sqrt((endX - startX) * (endX - startX) + (endY - startY) * (endY - startY));
+}
+bool StudentWorld::checkAllowed(int startX, int startY)
+{
+    bool allowed = true;
+    for (int k = 0; k < coords.size(); k++)
+    {
+        if (coords[k].x == startX && coords[k].y == startY)
+        {
+            allowed = false;
+        }
+        else
+        {
+            int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
+            if (d < (2 * SPRITE_RADIUS))
+            {
+                allowed = false;
+            }
+        }
+    }
+    return allowed;
+}
 int StudentWorld::init()
 {
     m_player = new Socrates(0, VIEW_HEIGHT/2,this);
@@ -27,10 +51,8 @@ int StudentWorld::init()
 ///////Pit////////
     for (int p = 0; p < getLevel(); p++)
     {
-        bool allowed = true;
-        int startX = randInt(0, 256);
-        int startY = randInt(0, 256);
-        for (int k = 0; k < coords.size(); k++)
+        /*bool allowed = true;
+       for (int k = 0; k < coords.size(); k++)
         {
             if (coords[k].x == startX && coords[k].y == startY)
             {
@@ -38,16 +60,18 @@ int StudentWorld::init()
             }
             else
             {
-                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
                 if (d < (2 * SPRITE_RADIUS))
                 {
                     allowed = false;
                 }
             }
-        }
+        }*/
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
 
-        int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
-        if (r <= 120 && allowed)
+        int r = findEuclidean(startX, startY, VIEW_WIDTH / 2, VIEW_HEIGHT / 2);
+        if (r <= 120 && checkAllowed(startX,startY))
         {
             actors.push_back(new Pit(startX, startY, this));
             coords.push_back(Coordinate(startX, startY));
@@ -62,9 +86,8 @@ int StudentWorld::init()
 /////Food/////
     for (int f = 0; f < max(5 * getLevel(), 25); f++)
     {
-        bool allowed = true;
-        int startX = randInt(0, 256);
-        int startY = randInt(0, 256);
+       /* bool allowed = true;
+        
         for (int k = 0; k < coords.size(); k++)
         {
             if (coords[k].x == startX && coords[k].y == startY)
@@ -73,16 +96,17 @@ int StudentWorld::init()
             }
             else
             {
-                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
                 if (d < (2 * SPRITE_RADIUS))
                 {
                     allowed = false;
                 }
             }
-        }
-
-        int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
-        if (r <= 120 && allowed)
+        }*/
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
+        int r = findEuclidean(startX, startY, VIEW_WIDTH / 2, VIEW_HEIGHT / 2);
+        if (r <= 120 && checkAllowed(startX, startY))
         {
             actors.push_back(new Food(startX, startY, this));
             coords.push_back(Coordinate(startX, startY));
@@ -99,9 +123,8 @@ int StudentWorld::init()
     int numDirt = max((180-2*getLevel()), 20);
     for (int i = 0; i < numDirt; i++)
     {
-        bool allowed = true;
-        int startX = randInt(0, 256);
-        int startY = randInt(0, 256);
+        /*bool allowed = true;
+        
         for (int k = 0; k < coords.size(); k++)
         {
             if (coords[k].x == startX && coords[k].y == startY)
@@ -110,16 +133,18 @@ int StudentWorld::init()
             }
             else
             {
-                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
                 if (d < (2 * SPRITE_RADIUS))
                 {
                     allowed = false;
                 }
             }
-        }
-
-        int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
-        if (r <= 120 && allowed)
+        }*/
+        
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
+        int r = findEuclidean(startX, startY, VIEW_WIDTH / 2, VIEW_HEIGHT / 2);
+        if (r <= 120 && checkAllowed(startX, startY))
         {
             actors.push_back(new Dirt(startX, startY, this));
         }
