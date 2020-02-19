@@ -23,7 +23,7 @@ class Actor : public GraphObject
 { 
 public: 
 	Actor(int imID, double startX, double startY, StudentWorld* studentWorldptr);
-	void doSomething();
+	virtual void doSomething();
 	StudentWorld* getWorld() const;
 	void findRadius(int x, int y, int& r, int& angle);
 
@@ -38,6 +38,7 @@ class Socrates:public Actor
 public:
 	Socrates(double startX, double startY, StudentWorld* swptr);
 	virtual void doSomething();
+	void moveSocrates(double d);
 	int getHitPoints();
 	int getSprays();
 	int getFlames();
@@ -47,7 +48,7 @@ public:
 private:
 	int m_hitPoints;
 	//int m_direction;
-	int m_angle;
+	//int m_angle;
 	//int m_depth;
 	int m_sprayCharges;
 	int m_flameThrowerCharges;

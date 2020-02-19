@@ -15,6 +15,8 @@ StudentWorld* Actor::getWorld() const
     return sw;
 }
 
+void Actor::doSomething() {}
+
 void Actor::findRadius(int x, int y, int& r, int& angle)
 {
     angle = tan(y / x);
@@ -30,7 +32,7 @@ Socrates::Socrates(double startX, double startY, StudentWorld* swptr) : Actor(II
     m_flameThrowerCharges = 5;
     //bool m_alive = true;
     //int m_direction = 0;
-    m_angle = 180;
+    //m_angle = 180;
     //int m_depth = 0;
     
     
@@ -40,6 +42,14 @@ int Socrates::getSprays() { return m_sprayCharges; }
 int Socrates::getFlames() { return m_flameThrowerCharges; }
 
 
+void Socrates::moveSocrates(double d)
+{
+    double x, y;
+    Direction a = getDirection() + d;
+    getPositionInThisDirection(a, VIEW_RADIUS, x, y);
+    moveTo(VIEW_WIDTH / 2 - x + getX(), VIEW_HEIGHT / 2 - y + getY());
+    setDirection(a);
+}
 
 void Socrates::doSomething() 
 {
@@ -53,21 +63,23 @@ void Socrates::doSomething()
             case KEY_PRESS_LEFT:
                //move Socrates counterclockwise
             {
-                double x, y;
+                moveSocrates(-5.0);
+                /*double x, y;
                 Direction a = getDirection()  + 5.0;
                 getPositionInThisDirection(a, VIEW_RADIUS, x, y);
                 moveTo(VIEW_WIDTH/2-x+getX(), VIEW_HEIGHT/2-y+getY());
-                setDirection(getDirection() + 5.0);
+                setDirection(getDirection() + 5.0);*/
                 break;
             }
             case KEY_PRESS_RIGHT:
             //... move Socrates clockwise...;  
             {
-                double x, y;
+                moveSocrates(5.0);
+                /*double x, y;
                 Direction a = getDirection() - 5.0;
                 getPositionInThisDirection(a, VIEW_RADIUS, x, y);
                 moveTo(VIEW_WIDTH / 2 - x + getX(), VIEW_HEIGHT / 2 - y + getY());
-                setDirection(getDirection() - 5.0);
+                setDirection(getDirection() - 5.0);*/
                 break;
 
             }

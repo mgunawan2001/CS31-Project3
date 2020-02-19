@@ -168,6 +168,11 @@ int StudentWorld::move()
 
 void StudentWorld::cleanUp()
 {
+    delete m_player;
+    for (int i = 0; i < actors.size(); i++)
+    {
+        delete actors[i];
+    }
 }
 
 StudentWorld::~StudentWorld()

@@ -1,8 +1,5 @@
 ﻿  Actor.cpp
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(20,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(21,13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(57,29): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(60,45): warning C4244: 'argument': conversion from 'double' to 'Direction', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(67,29): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(70,45): warning C4244: 'argument': conversion from 'double' to 'Direction', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(22,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(23,13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(48,17): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
   Kontagion.vcxproj -> C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Debug\Kontagion.exe
