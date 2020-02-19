@@ -38,20 +38,43 @@ class Socrates:public Actor
 public:
 	Socrates(StudentWorld* swptr);
 	virtual void doSomething();
+	int getHitPoints();
+	int getSprays();
+	int getFlames();
+
+	//void move(int angle, int r, double& x, double& y);
 	
 private:
 	int m_hitPoints;
 	//int m_direction;
-	//int m_startAngle;
+	int m_angle;
 	//int m_depth;
-	//int m_sprayCharges;
-	//int m_flameThrowerCharges;	
+	int m_sprayCharges;
+	int m_flameThrowerCharges;
 };
 
 class Dirt: public Actor
 {
 public:
 	Dirt(int startX, int startY, StudentWorld* swptr);
+};
+
+class Pit:public Actor
+{
+public:
+	Pit(int startX, int startY, StudentWorld* swptr);
+};
+
+class Food :public Actor
+{
+public:
+	Food(int startX, int startY, StudentWorld* swptr);
+};
+
+class Spray:public Actor
+{
+public:
+	Spray(int startX, int startY, StudentWorld* swptr);
 };
 
 /*class Bacterium: public Actor
@@ -68,8 +91,7 @@ public:
 class EColi
 {};
 
-class Spray
-{};
+
 
 class Flames
 {};
@@ -80,13 +102,7 @@ class RestoreHealthGoodies
 class ExtraLifeGoodies
 {};
 
-class Pits
-{};
-
 class Fungi
-{};
-
-class Food
 {};*/
 #endif // ACTOR_H_
 

@@ -20,9 +20,21 @@ public:
     virtual void cleanUp();
     virtual ~StudentWorld();
 
+
+    vector<Actor*> getActors() { return actors; }
+
 private:
     Socrates* m_player;
     vector<Actor*> actors;
+
+    struct Coordinate
+    {
+        double x, y;
+
+        Coordinate(double X, double Y) :x(X), y(Y) {}
+    };
+
+    vector<Coordinate> coords;
     
 };
 

@@ -1,3 +1,11 @@
 ﻿  StudentWorld.cpp
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(37,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(33,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(41,23): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(49,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(68,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(76,23): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(84,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(105,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(113,23): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(121,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Kontagion.vcxproj -> C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Debug\Kontagion.exe

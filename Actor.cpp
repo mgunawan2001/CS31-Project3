@@ -24,57 +24,75 @@ void Actor::findRadius(int x, int y, int& r, int& angle)
 
 
 /////////////////////////////////////Socrates///////////////////////////////////////////
-Socrates::Socrates(StudentWorld* swptr) : Actor(IID_PLAYER, 0, 128, swptr)
+Socrates::Socrates(StudentWorld* swptr) : Actor(IID_PLAYER, 0, (VIEW_HEIGHT / 2), swptr)
 {
-    int m_hitPoints = 100;
+    m_hitPoints = 100;
+    m_sprayCharges = 20;
+    m_flameThrowerCharges = 5;
     //bool m_alive = true;
     //int m_direction = 0;
-    //int m_startAngle = 180;
+    m_angle = 180;
     //int m_depth = 0;
-    //int m_sprayCharges = 20;
-    //int m_flameThrowerCharges = 5;
+    
     
 }
+int Socrates::getHitPoints() { return m_hitPoints; }
+int Socrates::getSprays() { return m_sprayCharges; }
+int Socrates::getFlames() { return m_flameThrowerCharges; }
 
 
 
 void Socrates::doSomething() 
 {
-    //if (m_hitPoints>0)
-    //{
-    //    int ch;
-    //    if (getWorld()->getKey(ch)) {
-    //        // user hit a key during this tick!
-    //     switch (ch)
-    //     {
-    //        case KEY_PRESS_LEFT:
-    //        ... move Socrates counterclockwise ...;
-    //        break;
+    if (m_hitPoints>0)
+    {
+        int ch;
+        if (getWorld()->getKey(ch)) {
+            // user hit a key during this tick!
+            switch (ch)
+            {
+            case KEY_PRESS_LEFT:
+               //move Socrates counterclockwise
+            {
+                double x, y;
+                Direction a = getDirection() + 5;
+                getPositionInThisDirection(a, VIEW_RADIUS, x, y);
+                moveTo(x, y);
+                break;
+            }
     //        case KEY_PRESS_RIGHT:
     //        ... move Socrates clockwise...;             
     //        break;
-    //        case KEY_PRESS_SPACE:
-    //            if (m_sprayCharges > 0)
-    //            {
-    //                m_sprayCharges--;
-    //            }
-    //            ... add spray in front of Socrates...;    
-    //            break; 
+    //       case KEY_PRESS_SPACE:
+    //           if (m_sprayCharges > 0)
+    //           {
+    //               m_sprayCharges--;
+    //           }
+    //           //(*getWorld().getActors().push_back(Spray()));
+    ////            ... add spray in front of Socrates...;    
+    //           break; 
     //        case KEY_PRESS_ENTER:
     //            if (m_flameThrowerCharges > 0)
     //            {
     //                m_flameThrowerCharges--;
     //            }
-    //     }
-    //    }
-    //}
-    //else
-    //{
+    //            break;
+            }
+        }
+    }
+    else
+    {
     //    return;
-    //}
+    }
 } 
 
 ////////////////////////////////////Dirt////////////////////////////////
 Dirt::Dirt(int startX, int startY, StudentWorld* swptr) :Actor(IID_DIRT, startX, startY, swptr)
 {
 }
+///////////////////////////////////////Pit/////////////////////////////////////////
+Pit::Pit(int startX, int startY, StudentWorld* swptr) : Actor(IID_PIT, startX, startY, swptr)
+{}
+//////////////////////////////////////Food//////////////////////////////////////////
+Food::Food(int startX, int startY, StudentWorld* swptr) : Actor(IID_FOOD, startX, startY, swptr)
+{}

@@ -23,19 +23,103 @@ StudentWorld::StudentWorld(string assetPath)
 int StudentWorld::init()
 {
     m_player = new Socrates(this);
-   /* Add max(180 – 20 * L, 20) dirt objects to the Petri dish at random locations, 
-      in a manner such that no dirt objects overlap with previously - placed food
-      objects or pits(their centers are at least 2 * SPRITE_RADIUS pixels apart from
-      each other).It is OK for dirt objects to overlap with each other, however.Each
-      dirt object must be no more 120 pixels from the center of the Petri dish which
-      is at(VIEW_WIDTH / 2, VIEW_HEIGHT / 2).*/
+
+///////Pit////////
+    for (int p = 0; p < getLevel(); p++)
+    {
+        bool allowed = true;
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
+        for (int k = 0; k < coords.size(); k++)
+        {
+            if (coords[k].x == startX && coords[k].y == startY)
+            {
+                allowed = false;
+            }
+            else
+            {
+                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                if (d < (2 * SPRITE_RADIUS))
+                {
+                    allowed = false;
+                }
+            }
+        }
+
+        int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
+        if (r <= 120 && allowed)
+        {
+            actors.push_back(new Pit(startX, startY, this));
+            coords.push_back(Coordinate(startX, startY));
+        }
+        else
+        {
+            p--;
+        }
+
+    }
+  
+/////Food/////
+    for (int f = 0; f < max(5 * getLevel(), 25); f++)
+    {
+        bool allowed = true;
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
+        for (int k = 0; k < coords.size(); k++)
+        {
+            if (coords[k].x == startX && coords[k].y == startY)
+            {
+                allowed = false;
+            }
+            else
+            {
+                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                if (d < (2 * SPRITE_RADIUS))
+                {
+                    allowed = false;
+                }
+            }
+        }
+
+        int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
+        if (r <= 120 && allowed)
+        {
+            actors.push_back(new Food(startX, startY, this));
+            coords.push_back(Coordinate(startX, startY));
+
+        }
+        else
+        {
+            f--;
+        }
+
+    }
+
+/////Dirt////////
     int numDirt = max((180-2*getLevel()), 20);
     for (int i = 0; i < numDirt; i++)
     {
-        int startX = rand() % 256;
-        int startY = rand() % 256;
+        bool allowed = true;
+        int startX = randInt(0, 256);
+        int startY = randInt(0, 256);
+        for (int k = 0; k < coords.size(); k++)
+        {
+            if (coords[k].x == startX && coords[k].y == startY)
+            {
+                allowed = false;
+            }
+            else
+            {
+                int d = sqrt((startX - coords[k].x) * (startX - coords[k].x) + (startY - coords[k].y) * (startY - coords[k].y));
+                if (d < (2 * SPRITE_RADIUS))
+                {
+                    allowed = false;
+                }
+            }
+        }
+
         int r = sqrt((startX - VIEW_WIDTH / 2) * (startX - VIEW_WIDTH / 2) + (startY - VIEW_HEIGHT / 2) * (startY - VIEW_HEIGHT / 2));
-        if (r<=120)
+        if (r <= 120 && allowed)
         {
             actors.push_back(new Dirt(startX, startY, this));
         }
@@ -44,6 +128,8 @@ int StudentWorld::init()
             i--;
         }
     }
+
+    
 
     return GWSTATUS_CONTINUE_GAME;
 }     
@@ -74,6 +160,8 @@ int StudentWorld::move()
    // // the player hasn’t completed the current level and hasn’t died, so  
    // // continue playing the current level  
    // return GWSTATUS_CONTINUE_GAME;    } 
+    string stats = "Score: " + to_string(getScore()) + " Level: " + to_string(getLevel()) + " Lives: " + to_string(getLives()) + " health: " + to_string((*m_player).getHitPoints()) + " Sprays: " + to_string(m_player->getSprays()) + " Flames: " + to_string(m_player->getFlames());
+    setGameStatText(stats);
     return 1;
 }
 
