@@ -6,9 +6,8 @@
 
 
 ////////////////////////////////////////Actor///////////////////////////////////////
-Actor::Actor(int imID, double startX, double startY, StudentWorld* studentWorldptr) :GraphObject(imID, startX, startY)
+Actor::Actor(int imID, double startX, double startY, StudentWorld* studentWorldptr) :GraphObject(imID, startX, startY), sw(studentWorldptr)
 {
-    sw = studentWorldptr;
 }
 
 StudentWorld* Actor::getWorld() const
@@ -24,7 +23,7 @@ void Actor::findRadius(int x, int y, int& r, int& angle)
 
 
 /////////////////////////////////////Socrates///////////////////////////////////////////
-Socrates::Socrates(StudentWorld* swptr) : Actor(IID_PLAYER, 0, (VIEW_HEIGHT / 2), swptr)
+Socrates::Socrates(double startX, double startY, StudentWorld* swptr) : Actor(IID_PLAYER, startX, startY, swptr)
 {
     m_hitPoints = 100;
     m_sprayCharges = 20;
@@ -55,13 +54,23 @@ void Socrates::doSomething()
                //move Socrates counterclockwise
             {
                 double x, y;
-                Direction a = getDirection() + 5;
+                Direction a = getDirection()  + 5.0;
                 getPositionInThisDirection(a, VIEW_RADIUS, x, y);
-                moveTo(x, y);
+                moveTo(VIEW_WIDTH/2-x+getX(), VIEW_HEIGHT/2-y+getY());
+                setDirection(getDirection() + 5.0);
                 break;
             }
-    //        case KEY_PRESS_RIGHT:
-    //        ... move Socrates clockwise...;             
+            case KEY_PRESS_RIGHT:
+            //... move Socrates clockwise...;  
+            {
+                double x, y;
+                Direction a = getDirection() - 5.0;
+                getPositionInThisDirection(a, VIEW_RADIUS, x, y);
+                moveTo(VIEW_WIDTH / 2 - x + getX(), VIEW_HEIGHT / 2 - y + getY());
+                setDirection(getDirection() - 5.0);
+                break;
+
+            }
     //        break;
     //       case KEY_PRESS_SPACE:
     //           if (m_sprayCharges > 0)
@@ -87,12 +96,12 @@ void Socrates::doSomething()
 } 
 
 ////////////////////////////////////Dirt////////////////////////////////
-Dirt::Dirt(int startX, int startY, StudentWorld* swptr) :Actor(IID_DIRT, startX, startY, swptr)
+Dirt::Dirt(double startX, double startY, StudentWorld* swptr) :Actor(IID_DIRT, startX, startY, swptr)
 {
 }
 ///////////////////////////////////////Pit/////////////////////////////////////////
-Pit::Pit(int startX, int startY, StudentWorld* swptr) : Actor(IID_PIT, startX, startY, swptr)
+Pit::Pit(double startX, double startY, StudentWorld* swptr) : Actor(IID_PIT, startX, startY, swptr)
 {}
 //////////////////////////////////////Food//////////////////////////////////////////
-Food::Food(int startX, int startY, StudentWorld* swptr) : Actor(IID_FOOD, startX, startY, swptr)
+Food::Food(double startX, double startY, StudentWorld* swptr) : Actor(IID_FOOD, startX, startY, swptr)
 {}

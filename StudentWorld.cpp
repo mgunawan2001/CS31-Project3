@@ -22,7 +22,7 @@ StudentWorld::StudentWorld(string assetPath)
 
 int StudentWorld::init()
 {
-    m_player = new Socrates(this);
+    m_player = new Socrates(0, VIEW_HEIGHT/2,this);
 
 ///////Pit////////
     for (int p = 0; p < getLevel(); p++)
@@ -160,6 +160,7 @@ int StudentWorld::move()
    // // the player hasn’t completed the current level and hasn’t died, so  
    // // continue playing the current level  
    // return GWSTATUS_CONTINUE_GAME;    } 
+    m_player->doSomething();
     string stats = "Score: " + to_string(getScore()) + " Level: " + to_string(getLevel()) + " Lives: " + to_string(getLives()) + " health: " + to_string((*m_player).getHitPoints()) + " Sprays: " + to_string(m_player->getSprays()) + " Flames: " + to_string(m_player->getFlames());
     setGameStatText(stats);
     return 1;

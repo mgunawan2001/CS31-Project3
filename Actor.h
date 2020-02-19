@@ -36,7 +36,7 @@ private:
 class Socrates:public Actor
 {
 public:
-	Socrates(StudentWorld* swptr);
+	Socrates(double startX, double startY, StudentWorld* swptr);
 	virtual void doSomething();
 	int getHitPoints();
 	int getSprays();
@@ -56,25 +56,25 @@ private:
 class Dirt: public Actor
 {
 public:
-	Dirt(int startX, int startY, StudentWorld* swptr);
+	Dirt(double startX, double startY, StudentWorld* swptr);
 };
 
 class Pit:public Actor
 {
 public:
-	Pit(int startX, int startY, StudentWorld* swptr);
+	Pit(double startX, double startY, StudentWorld* swptr);
 };
 
 class Food :public Actor
 {
 public:
-	Food(int startX, int startY, StudentWorld* swptr);
+	Food(double startX, double startY, StudentWorld* swptr);
 };
 
 class Spray:public Actor
 {
 public:
-	Spray(int startX, int startY, StudentWorld* swptr);
+	Spray(double startX, double startY, StudentWorld* swptr);
 };
 
 /*class Bacterium: public Actor
