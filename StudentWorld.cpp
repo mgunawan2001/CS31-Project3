@@ -107,8 +107,8 @@ int StudentWorld::init()
         }
     }
 
-    
-
+    //string stats = "Score: " + to_string(getScore()) + " Level: " + to_string(getLevel()) + " Lives: " + to_string(getLives()) + " health: " + to_string((*m_player).getHitPoints()) + " Sprays: " + to_string(m_player->getSprays()) + " Flames: " + to_string(m_player->getFlames()) + " size: " + to_string(actors.size());
+    //setGameStatText(stats);
     return GWSTATUS_CONTINUE_GAME;
 }     
 
@@ -138,27 +138,37 @@ int StudentWorld::move()
    // // the player hasn’t completed the current level and hasn’t died, so  
    // // continue playing the current level  
    // return GWSTATUS_CONTINUE_GAME;    } 
-    m_player->doSomething();
-    string stats = "Score: " + to_string(getScore()) + " Level: " + to_string(getLevel()) + " Lives: " + to_string(getLives()) + " health: " + to_string((*m_player).getHitPoints()) + " Sprays: " + to_string(m_player->getSprays()) + " Flames: " + to_string(m_player->getFlames());
+    if (m_player->isAlive())
+    {
+        m_player->doSomething();
+        for (int i=0; i < actors.size();i++)
+        {
+            if (actors[i]->isAlive())
+            {
+                actors[i]->doSomething();
+            }
+            else
+            {
+                actors.erase(actors.begin() + i);
+                i--;
+            }
+        }
+    }
+    if (!m_player->isAlive())
+    {
+        return GWSTATUS_PLAYER_DIED;
+    }
+    /*if (SocratesCompletedTheCurrentLevel()) 
+    { return GWSTATUS_FINISHED_LEVEL; }*/
+    
+
+    
+
+    string stats = "Score: " + to_string(getScore()) + " Level: " + to_string(getLevel()) + " Lives: " + to_string(getLives()) + " health: " + to_string((*m_player).getHitPoints()) + " Sprays: " + to_string(m_player->getSprays()) + " Flames: " + to_string(m_player->getFlames()); // +" size: " + to_string(actors.size());
     setGameStatText(stats);
     return 1;
 }
 
-bool StudentWorld::harm(Socrates* s, Bacteria* b)
-{
-        int rs;
-        int as;
-        s->findRadius(s->getX(), s->getY(), rs, as);
-        int rb;
-        int ab;
-        b->findRadius(b->getX(), b->getY(), rb, ab);
-        if (rs - rb == (2 * SPRITE_RADIUS)|| rb - rs == (2 * SPRITE_RADIUS))
-        {
-            s->hit();
-            return true;
-        }
-        return false;
-}
 
 void StudentWorld::cleanUp()
 {

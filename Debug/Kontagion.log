@@ -1,7 +1,20 @@
 ﻿  Actor.cpp
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(29,19): warning C4150: deletion of pointer to incomplete type 'StudentWorld'; no destructor called
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(37,19): warning C4150: deletion of pointer to incomplete type 'StudentWorld'; no destructor called
 C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(5): message : see declaration of 'StudentWorld'
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(22,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(23,13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(64,17): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(72,17): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(193,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(198,61): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(198,59): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(198,55): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(198,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  StudentWorld.cpp
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(37,19): warning C4150: deletion of pointer to incomplete type 'StudentWorld'; no destructor called
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(5): message : see declaration of 'StudentWorld'
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(27,16): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(33,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(41,73): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(41,60): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(144,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(176,23): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Kontagion.vcxproj -> C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Debug\Kontagion.exe

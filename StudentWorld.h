@@ -20,10 +20,12 @@ public:
     virtual ~StudentWorld();
     int findEuclidean(int startX, int startY, int endX, int endY);
     bool checkAllowed(int startX, int startY);
-    bool harm(Socrates* s, Bacteria* b);
 
-
+    
     vector<Actor*> getActors() { return actors; }
+
+    void insert(Actor* a) { actors.push_back(a); }
+    Actor* inPos(int i) { return actors[i]; }
 
 private:
     Socrates* m_player;

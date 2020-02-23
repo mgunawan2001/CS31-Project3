@@ -22,31 +22,69 @@ const int IID_FUNGUS                = 11;*/
 class Actor : public GraphObject 
 { 
 public: 
-	Actor(int imID, double startX, double startY, StudentWorld* studentWorldptr);
+	Actor(const int imID, double startX, double startY, StudentWorld* studentWorldptr);
 	virtual void doSomething();
+
 	StudentWorld* getWorld() const;
-	void findRadius(int x, int y, int& r, int& angle);
+
+	bool isAlive();
+	void setDead();
+
+	void getPos(double& x, double& y) { x = -100; y = -100; }
+	void damagedByFlame() {}
+	void harmSocrates(){}
+	
 	virtual ~Actor() { delete sw; }
 
 private:
 	StudentWorld* sw;
+	bool m_alive;
 };
 
-class Living : public Actor
+class Damagable : public Actor
 {
 public:
-	Living(int hp, const int id, double startX, double startY, StudentWorld* swptr);
+	Damagable(int hp, const int id, double startX, double startY, StudentWorld* swptr);
+	
+	void getPos(double& x, double& y) { x = getX(); y = getY(); }
+	void damagedByFlame() { m_hitPoints -= 5; }
+	
 	int getHitPoints();
-	virtual ~Living() {}
+	bool isAlive()
+	{
+		if (m_hitPoints <= 0)
+		{
+			setDead();
+		}
+		return Actor::isAlive();
+	}
+	virtual ~Damagable() {}
 private:
 	int m_hitPoints;
 };
 
-class Bacteria : public Living
+//class Living : public Actor
+//{
+//public:
+//	Living(int hp, const int id, double startX, double startY, StudentWorld* swptr);
+//	int getHitPoints();
+//	bool isAlive() 
+//	{
+//		if (m_hitPoints <= 0)
+//		{
+//			setDead();
+//		}
+//		Actor::isAlive();
+//	}
+//	virtual ~Living() {}
+//private:
+//	int m_hitPoints;
+//};
+
+class Bacteria : public Damagable
 {
 public:
 	Bacteria(int hp, const int id, double startX, double startY, StudentWorld* swptr);
-
 };
 
 
@@ -65,20 +103,23 @@ public:
 
 
 
-class Socrates:public Actor
+class Socrates:public Damagable
 {
 public:
 	Socrates(double startX, double startY, StudentWorld* swptr);
 	void doSomething();
+
 	void moveSocrates(double d);
+
 	int getHitPoints() const;
+	void decHitPoints(int m);
+
 	int getSprays() const;
 	int getFlames() const;
-	void hit();
+
+	void overlap(Actor* a);
 
 
-	//void move(int angle, int r, double& x, double& y);
-	
 private:
 	int m_hitPoints;
 	//int m_direction;
@@ -90,7 +131,7 @@ private:
 	int tickNotPressed;
 };
 
-class Dirt: public Actor
+class Dirt: public Damagable
 {
 public:
 	Dirt(double startX, double startY, StudentWorld* swptr);
@@ -117,6 +158,7 @@ class Flame: public Actor
 {
 public:
 	Flame(double startX, double startY, StudentWorld* swptr, Direction d);
+	void doSomething();
 };
 
 //class Spray:public Actor
@@ -126,7 +168,9 @@ public:
 //};
 
 /*class Bacterium: public Actor
-{};
+{
+	
+};
 
 class Salmonella: public Actor
 {};
@@ -146,7 +190,13 @@ class ExtraLifeGoodies
 {};
 
 class Fungi
-{};*/
+{
+	void harmSocrates()
+	{
+		increaseScore(-50);
+		getWorld()->decHitPoints(20);
+	}
+};*/
 #endif // ACTOR_H_
 
 

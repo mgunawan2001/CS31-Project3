@@ -8,6 +8,7 @@
 ////////////////////////////////////////Actor///////////////////////////////////////
 Actor::Actor(int imID, double startX, double startY, StudentWorld* studentWorldptr) :GraphObject(imID, startX, startY), sw(studentWorldptr)
 {
+    m_alive = true;
 }
 
 StudentWorld* Actor::getWorld() const
@@ -15,30 +16,30 @@ StudentWorld* Actor::getWorld() const
     return sw;
 }
 
+bool Actor::isAlive() { return m_alive; }
+void Actor::setDead() { m_alive = false; }
+
 void Actor::doSomething() {}
 
-void Actor::findRadius(int x, int y, int& r, int& angle)
-{
-    angle = tan(y / x);
-    r = sqrt((y * y) + (x * x));
-}
-
-//bool Actor::harmSocrates()
-//{
-//    return false;
-//}
-////////////////////////////////Living////////////////////////////////
-Living::Living(int hp, const int id, double startX, double startY, StudentWorld* swptr) : Actor(id, startX, startY, swptr)
+/////////////////////////////////////Damagable/////////////////////////
+Damagable::Damagable(int hp, const int id, double startX, double startY, StudentWorld* swptr) : Actor(id, startX, startY, swptr)
 {
     m_hitPoints = hp;
 }
+
+////////////////////////////////Living////////////////////////////////
+//Living::Living(int hp, const int id, double startX, double startY, StudentWorld* swptr) : Actor(id, startX, startY, swptr)
+//{
+//    m_hitPoints = hp;
+//}
+
 ///////////////////////////////////Bacteria///////////////////////////
-Bacteria::Bacteria(int hp, const int id, double startX, double startY, StudentWorld* swptr) : Living(hp,id,startX,startY,swptr)
+Bacteria::Bacteria(int hp, const int id, double startX, double startY, StudentWorld* swptr) : Damagable(hp,id,startX,startY,swptr)
 {
 }
 
 /////////////////////////////////////Socrates///////////////////////////////////////////
-Socrates::Socrates(double startX, double startY, StudentWorld* swptr) : Actor(IID_PLAYER, startX, startY, swptr)
+Socrates::Socrates(double startX, double startY, StudentWorld* swptr) : Damagable(100, IID_PLAYER, startX, startY, swptr)
 {
     m_hitPoints = 100;
     m_sprayCharges = 20;
@@ -55,7 +56,14 @@ Socrates::Socrates(double startX, double startY, StudentWorld* swptr) : Actor(II
 int Socrates::getHitPoints() const { return m_hitPoints; }
 int Socrates::getSprays() const { return m_sprayCharges; }
 int Socrates::getFlames() const { return m_flameThrowerCharges; }
-void Socrates::hit() { m_hitPoints--; }
+void Socrates::decHitPoints(int m)
+{
+    m_hitPoints -= m;
+    if (m_hitPoints <= 0)
+    {
+        setDead();
+    }
+}
 
 
 void Socrates::moveSocrates(double d)
@@ -69,7 +77,7 @@ void Socrates::moveSocrates(double d)
 
 void Socrates::doSomething() 
 {
-    if (m_hitPoints>0)
+    if (isAlive())
     {
         int ch;
         if (Actor::getWorld()->getKey(ch)) {
@@ -97,10 +105,10 @@ void Socrates::doSomething()
                     {
                         double sprayX, sprayY;
                         getPositionInThisDirection(getDirection(), 2 * SPRITE_RADIUS, sprayX, sprayY);
-                        getWorld()->getActors().push_back(new Spray(sprayX, sprayY, getWorld(), getDirection()));
+                        getWorld()->insert(new Spray(sprayX, sprayY, getWorld(), getDirection()));
                         m_sprayCharges--;
                         getWorld()->playSound(SOUND_PLAYER_SPRAY);
-                    }
+                    };
                     break;
                 }
                 case KEY_PRESS_ENTER:
@@ -113,13 +121,19 @@ void Socrates::doSomething()
                         {
                             double flameX, flameY;
                             getPositionInThisDirection(right, 2 * SPRITE_RADIUS, flameX, flameY);
-                            getWorld()->getActors().push_back(new Flame(flameX, flameY, getWorld(), getDirection()));
+                            getWorld()->insert(new Flame(flameX, flameY, getWorld(), right));
+                            //->getActors().push_back(new Flame(flameX, flameY, getWorld(), getDirection()));
                             getPositionInThisDirection(left, 2 * SPRITE_RADIUS, flameX, flameY);
-                            getWorld()->getActors().push_back(new Flame(flameX, flameY, getWorld(), getDirection()));
+                            getWorld()->insert(new Flame(flameX, flameY, getWorld(), left));
+                            //getWorld()->getActors().push_back(new Flame(flameX, flameY, getWorld(), getDirection()));
                             right -= 22;
                             left += 22;
                         }
-                             m_flameThrowerCharges--;
+                            
+                        getWorld()->playSound(SOUND_PLAYER_FIRE);
+                        m_flameThrowerCharges--;
+                        
+                        
                     }
                     break;
                 }
@@ -144,14 +158,23 @@ void Socrates::doSomething()
     }
 } 
 
+void Socrates::overlap(Actor* a)
+{
+    a->harmSocrates();
+}
+
 ////////////////////////////////////Dirt////////////////////////////////
-Dirt::Dirt(double startX, double startY, StudentWorld* swptr) :Actor(IID_DIRT, startX, startY, swptr)
-{}
-///////////////////////////////////////Pit/////////////////////////////////////////
-Pit::Pit(double startX, double startY, StudentWorld* swptr) : Actor(IID_PIT, startX, startY, swptr)
-{}
+Dirt::Dirt(double startX, double startY, StudentWorld* swptr) :Damagable(1, IID_DIRT, startX, startY, swptr)
+{
+    //setDirection(90);
+}
 //////////////////////////////////////Food//////////////////////////////////////////
 Food::Food(double startX, double startY, StudentWorld* swptr) : Actor(IID_FOOD, startX, startY, swptr)
+{
+    //setDirection(90);
+}
+///////////////////////////////////////Pit/////////////////////////////////////////
+Pit::Pit(double startX, double startY, StudentWorld* swptr) : Actor(IID_PIT, startX, startY, swptr)
 {}
 /////////////////////////////////////Spray///////////////////////////////
 Spray::Spray(double startX, double startY, StudentWorld* swptr, Direction d) : Actor(IID_SPRAY, startX, startY, swptr)
@@ -162,4 +185,24 @@ Spray::Spray(double startX, double startY, StudentWorld* swptr, Direction d) : A
 Flame::Flame(double startX, double startY, StudentWorld* swptr, Direction d) : Actor(IID_FLAME, startX, startY, swptr)
 {
     setDirection(d);
+}
+void Flame::doSomething()
+{
+    if(isAlive())
+    {
+        for (int i = 0; i < (getWorld()->getActors()).size(); i++)
+        {
+            Actor* a = getWorld()->inPos(i);
+            double x, y;
+            a->getPos(x, y);
+            if (getWorld()->findEuclidean(getX(), getY(), x,y) <= SPRITE_RADIUS * 2)
+            {
+                (getWorld()->inPos(i))->damagedByFlame();
+                setDead();
+                return;
+            }
+        }
+        moveAngle(getDirection(), SPRITE_RADIUS * 2);
+        //moveForward(SPRITE_RADIUS * 2);
+    }
 }
