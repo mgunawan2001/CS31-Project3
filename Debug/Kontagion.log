@@ -1,7 +1,7 @@
-﻿  StudentWorld.cpp
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(25,16): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(30,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(38,73): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(38,60): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\StudentWorld.cpp(197,23): warning C4018: '<': signed/unsigned mismatch
+﻿  Actor.cpp
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(29,19): warning C4150: deletion of pointer to incomplete type 'StudentWorld'; no destructor called
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.h(5): message : see declaration of 'StudentWorld'
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(22,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(23,13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Kontagion\Actor.cpp(64,17): warning C4244: 'initializing': conversion from 'double' to 'Direction', possible loss of data
   Kontagion.vcxproj -> C:\Users\miche\OneDrive\Documents\School\CS32\Kontagion-skeleton-windows\Kontagion\Debug\Kontagion.exe

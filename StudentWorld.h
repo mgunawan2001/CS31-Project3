@@ -6,8 +6,7 @@
 #include<vector>
 using namespace std;
 
-class Actor;
-class Socrates;
+#include "Actor.h"
 
 // Students:  Add code to this file, StudentWorld.cpp, Actor.h, and Actor.cpp
 
@@ -21,6 +20,7 @@ public:
     virtual ~StudentWorld();
     int findEuclidean(int startX, int startY, int endX, int endY);
     bool checkAllowed(int startX, int startY);
+    bool harm(Socrates* s, Bacteria* b);
 
 
     vector<Actor*> getActors() { return actors; }

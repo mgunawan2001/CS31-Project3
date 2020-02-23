@@ -1,11 +1,13 @@
 #include "StudentWorld.h"
 #include "GameConstants.h"
+#include "Actor.h"
 #include <string>
 #include <algorithm>
 #include<math.h>
 using namespace std;
 
-#include "Actor.h"
+
+
 
 GameWorld* createStudentWorld(string assetPath)
 {
@@ -24,6 +26,7 @@ int StudentWorld::findEuclidean(int startX, int startY, int endX, int endY)
 {
     return sqrt((endX - startX) * (endX - startX) + (endY - startY) * (endY - startY));
 }
+
 bool StudentWorld::checkAllowed(int startX, int startY)
 {
     bool allowed = true;
@@ -44,6 +47,7 @@ bool StudentWorld::checkAllowed(int startX, int startY)
     }
     return allowed;
 }
+
 int StudentWorld::init()
 {
     m_player = new Socrates(0, VIEW_HEIGHT/2,this);
@@ -51,22 +55,6 @@ int StudentWorld::init()
 ///////Pit////////
     for (int p = 0; p < getLevel(); p++)
     {
-        /*bool allowed = true;
-       for (int k = 0; k < coords.size(); k++)
-        {
-            if (coords[k].x == startX && coords[k].y == startY)
-            {
-                allowed = false;
-            }
-            else
-            {
-                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
-                if (d < (2 * SPRITE_RADIUS))
-                {
-                    allowed = false;
-                }
-            }
-        }*/
         int startX = randInt(0, 256);
         int startY = randInt(0, 256);
 
@@ -86,23 +74,6 @@ int StudentWorld::init()
 /////Food/////
     for (int f = 0; f < max(5 * getLevel(), 25); f++)
     {
-       /* bool allowed = true;
-        
-        for (int k = 0; k < coords.size(); k++)
-        {
-            if (coords[k].x == startX && coords[k].y == startY)
-            {
-                allowed = false;
-            }
-            else
-            {
-                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
-                if (d < (2 * SPRITE_RADIUS))
-                {
-                    allowed = false;
-                }
-            }
-        }*/
         int startX = randInt(0, 256);
         int startY = randInt(0, 256);
         int r = findEuclidean(startX, startY, VIEW_WIDTH / 2, VIEW_HEIGHT / 2);
@@ -121,26 +92,8 @@ int StudentWorld::init()
 
 /////Dirt////////
     int numDirt = max((180-2*getLevel()), 20);
-    for (int i = 0; i < numDirt; i++)
-    {
-        /*bool allowed = true;
-        
-        for (int k = 0; k < coords.size(); k++)
-        {
-            if (coords[k].x == startX && coords[k].y == startY)
-            {
-                allowed = false;
-            }
-            else
-            {
-                int d = findEuclidean(startX, startY, coords[k].x, coords[k].y);
-                if (d < (2 * SPRITE_RADIUS))
-                {
-                    allowed = false;
-                }
-            }
-        }*/
-        
+    for (int d = 0; d < numDirt; d++)
+    {       
         int startX = randInt(0, 256);
         int startY = randInt(0, 256);
         int r = findEuclidean(startX, startY, VIEW_WIDTH / 2, VIEW_HEIGHT / 2);
@@ -150,7 +103,7 @@ int StudentWorld::init()
         }
         else 
         {
-            i--;
+            d--;
         }
     }
 
@@ -191,12 +144,30 @@ int StudentWorld::move()
     return 1;
 }
 
+bool StudentWorld::harm(Socrates* s, Bacteria* b)
+{
+        int rs;
+        int as;
+        s->findRadius(s->getX(), s->getY(), rs, as);
+        int rb;
+        int ab;
+        b->findRadius(b->getX(), b->getY(), rb, ab);
+        if (rs - rb == (2 * SPRITE_RADIUS)|| rb - rs == (2 * SPRITE_RADIUS))
+        {
+            s->hit();
+            return true;
+        }
+        return false;
+}
+
 void StudentWorld::cleanUp()
 {
     delete m_player;
     for (int i = 0; i < actors.size(); i++)
     {
         delete actors[i];
+        actors.erase(actors.begin()+i);
+        i--;
     }
 }
 
@@ -204,3 +175,4 @@ StudentWorld::~StudentWorld()
 {
     cleanUp();
 }
+

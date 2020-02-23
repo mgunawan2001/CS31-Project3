@@ -26,10 +26,42 @@ public:
 	virtual void doSomething();
 	StudentWorld* getWorld() const;
 	void findRadius(int x, int y, int& r, int& angle);
+	virtual ~Actor() { delete sw; }
 
 private:
 	StudentWorld* sw;
 };
+
+class Living : public Actor
+{
+public:
+	Living(int hp, const int id, double startX, double startY, StudentWorld* swptr);
+	int getHitPoints();
+	virtual ~Living() {}
+private:
+	int m_hitPoints;
+};
+
+class Bacteria : public Living
+{
+public:
+	Bacteria(int hp, const int id, double startX, double startY, StudentWorld* swptr);
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37,11 +69,13 @@ class Socrates:public Actor
 {
 public:
 	Socrates(double startX, double startY, StudentWorld* swptr);
-	virtual void doSomething();
+	void doSomething();
 	void moveSocrates(double d);
-	int getHitPoints();
-	int getSprays();
-	int getFlames();
+	int getHitPoints() const;
+	int getSprays() const;
+	int getFlames() const;
+	void hit();
+
 
 	//void move(int angle, int r, double& x, double& y);
 	
@@ -52,6 +86,8 @@ private:
 	//int m_depth;
 	int m_sprayCharges;
 	int m_flameThrowerCharges;
+	bool alive;
+	int tickNotPressed;
 };
 
 class Dirt: public Actor
@@ -72,11 +108,22 @@ public:
 	Food(double startX, double startY, StudentWorld* swptr);
 };
 
-class Spray:public Actor
+class Spray : public Actor
 {
 public:
-	Spray(double startX, double startY, StudentWorld* swptr);
+	Spray(double startX, double startY, StudentWorld* swptr, Direction d);
 };
+class Flame: public Actor
+{
+public:
+	Flame(double startX, double startY, StudentWorld* swptr, Direction d);
+};
+
+//class Spray:public Actor
+//{
+//public:
+//	Spray(double startX, double startY, StudentWorld* swptr);
+//};
 
 /*class Bacterium: public Actor
 {};
@@ -90,11 +137,6 @@ public:
 };
 
 class EColi
-{};
-
-
-
-class Flames
 {};
 
 class RestoreHealthGoodies
