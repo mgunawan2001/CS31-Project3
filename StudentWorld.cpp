@@ -24,7 +24,7 @@ StudentWorld::StudentWorld(string assetPath)
 
 int StudentWorld::findEuclidean(int startX, int startY, int endX, int endY)
 {
-    return sqrt((endX - startX) * (endX - startX) + (endY - startY) * (endY - startY));
+    return sqrt(((endX - startX) * (endX - startX)) + ((endY - startY) * (endY - startY)));
 }
 
 bool StudentWorld::checkAllowed(int startX, int startY)
@@ -72,7 +72,7 @@ int StudentWorld::init()
     }
   
 /////Food/////
-    for (int f = 0; f < max(5 * getLevel(), 25); f++)
+    for (int f = 0; f < min(5 * getLevel(), 25); f++)
     {
         int startX = randInt(0, 256);
         int startY = randInt(0, 256);
@@ -100,6 +100,7 @@ int StudentWorld::init()
         if (r <= 120 && checkAllowed(startX, startY))
         {
             actors.push_back(new Dirt(startX, startY, this));
+           // coords.push_back(Coordinate(startX, startY));
         }
         else 
         {
@@ -141,23 +142,41 @@ int StudentWorld::move()
     if (m_player->isAlive())
     {
         m_player->doSomething();
-        for (int i=0; i < actors.size();i++)
+        list<Actor*>::iterator it = actors.begin();
+        for (; it != actors.end();)
+        {
+            if ((*it)->isAlive())
+            {
+                (*it)->doSomething();
+                it++;
+
+            }
+            else if (!(*it)->isAlive())
+            {
+                //delete (*it);
+                it=actors.erase(it);
+            }
+        }
+
+        /*for (int i=0; i < actors.size();i++)
         {
             if (actors[i]->isAlive())
             {
                 actors[i]->doSomething();
+               
             }
-            else
+            else if(!(actors[i]->isAlive()))
             {
-                actors.erase(actors.begin() + i);
-                i--;
+               delete actors[i];
+               actors.erase(actors.begin() + i);
+               i--;
             }
-        }
+        }*/
     }
-    if (!m_player->isAlive())
+    /*if (!m_player->isAlive())
     {
         return GWSTATUS_PLAYER_DIED;
-    }
+    }*/
     /*if (SocratesCompletedTheCurrentLevel()) 
     { return GWSTATUS_FINISHED_LEVEL; }*/
     
@@ -173,12 +192,18 @@ int StudentWorld::move()
 void StudentWorld::cleanUp()
 {
     delete m_player;
-    for (int i = 0; i < actors.size(); i++)
-    {
-        delete actors[i];
-        actors.erase(actors.begin()+i);
-        i--;
-    }
+     list<Actor*>::iterator it = actors.begin();
+     for (;it!=actors.end();)
+     {
+         delete *it;
+         it = actors.erase(it);
+     }
+    //for (int i = 0; i < actors.size(); i++)
+    //{
+    //    delete actors[i];
+    //    actors.erase(actors.begin()+i);
+    //    i--;
+    //}
 }
 
 StudentWorld::~StudentWorld()
